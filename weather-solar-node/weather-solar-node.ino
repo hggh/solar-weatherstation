@@ -57,7 +57,7 @@ void loop() {
 
 
   radio.sleep();
-  for (uint8_t i = 0; i <= SLEEP_TIME_MIN; i++) {
+  for (uint8_t i = 1; i <= SLEEP_TIME_MIN; i++) {
     Sleepy::loseSomeTime(60000);
   }
 
