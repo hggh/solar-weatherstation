@@ -6,5 +6,6 @@
 #define ACK_TIME      15
 
 #define DHT22_PIN 9
+#define DHTTYPE DHT22
 #define DEBUG 0
 #define SLEEP_TIME_MIN 10
