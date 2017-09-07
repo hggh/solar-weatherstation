@@ -28,6 +28,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:solar-supercap-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -145,21 +146,10 @@ Text GLabel 5500 1250 2    60   Input ~ 0
 5.5V
 Text GLabel 5500 1950 2    60   Input ~ 0
 GND
-Text GLabel 3650 2350 1    60   Input ~ 0
+Text GLabel 3700 2400 1    60   Input ~ 0
 5.5V
-Text GLabel 3650 2450 3    60   Input ~ 0
+Text GLabel 3700 2600 3    60   Input ~ 0
 GND
-$Comp
-L CONN_01X02 P2
-U 1 1 599B19F6
-P 4150 2400
-F 0 "P2" H 4150 2550 50  0000 C CNN
-F 1 "OUT" V 4250 2400 50  0000 C CNN
-F 2 "" H 4150 2400 50  0000 C CNN
-F 3 "" H 4150 2400 50  0000 C CNN
-	1    4150 2400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2300 1700 2000 1700
 Wire Wire Line
@@ -182,13 +172,59 @@ Connection ~ 3500 1650
 Wire Wire Line
 	4700 1250 5500 1250
 Wire Wire Line
-	3650 2350 3950 2350
-Wire Wire Line
-	3650 2450 3950 2450
-Wire Wire Line
 	5050 1450 5050 1250
 Connection ~ 5050 1250
 Wire Wire Line
 	5050 1750 5050 1950
 Connection ~ 5050 1950
+$Comp
+L R R2
+U 1 1 59B1A4AE
+P 4150 1400
+F 0 "R2" V 4230 1400 50  0000 C CNN
+F 1 "51k" V 4150 1400 50  0000 C CNN
+F 2 "" V 4080 1400 50  0000 C CNN
+F 3 "" H 4150 1400 50  0000 C CNN
+	1    4150 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R3
+U 1 1 59B1A4EC
+P 4150 1800
+F 0 "R3" V 4230 1800 50  0000 C CNN
+F 1 "10k" V 4150 1800 50  0000 C CNN
+F 2 "" V 4080 1800 50  0000 C CNN
+F 3 "" H 4150 1800 50  0000 C CNN
+	1    4150 1800
+	1    0    0    -1  
+$EndComp
+Connection ~ 4150 1950
+Connection ~ 4150 1250
+Connection ~ 4150 1600
+Wire Wire Line
+	4150 1550 4150 1650
+Text GLabel 4300 1600 2    60   Input ~ 0
+V_SOLAR
+Wire Wire Line
+	4300 1600 4150 1600
+$Comp
+L CONN_01X03 P2
+U 1 1 59B1A79D
+P 4200 2500
+F 0 "P2" H 4200 2700 50  0000 C CNN
+F 1 "CONN_01X03" V 4300 2500 50  0000 C CNN
+F 2 "" H 4200 2500 50  0000 C CNN
+F 3 "" H 4200 2500 50  0000 C CNN
+	1    4200 2500
+	1    0    0    -1  
+$EndComp
+Text GLabel 3500 2500 0    60   Input ~ 0
+V_SOLAR
+Wire Wire Line
+	4000 2400 3700 2400
+Wire Wire Line
+	4000 2500 3500 2500
+Wire Wire Line
+	4000 2600 3700 2600
 $EndSCHEMATC
