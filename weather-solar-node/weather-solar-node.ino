@@ -16,7 +16,6 @@ ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
 void setup() {
   pinMode(DHT22_PIN, INPUT);
-  pinMode(SOLAR_POWER_PIN, INPUT);
 
   if (DEBUG == 1) {
     Serial.begin(9600);
@@ -37,16 +36,6 @@ void setup() {
   power_timer2_disable();
 }
 
-double read_voltage() {
-  power_adc_enable();
-  float val = analogRead(SOLAR_POWER_PIN);
-
-  double vin = ((val * voltage) / 1024.0) / (volt_r2 / ( volt_r1 + volt_r2));
-  power_adc_disable();
-
-  return vin;
-}
-
 void loop() {
 
   double t = dht.readTemperature();
@@ -54,18 +43,15 @@ void loop() {
   
   char Tstr[10];
   char Hstr[10];
-  char Vstr[10];
 
   if (isnan(t) || isnan(h)) {
     delay(10);
     return;
   }
-  double v = read_voltage();
-  dtostrf(v, 3,2, Vstr);
   dtostrf(t, 3,2, Tstr);
   dtostrf(h, 3,2, Hstr);
   
-  sprintf(buffer, "%d;%s;%s;%s", NODEID, Tstr, Hstr, Vstr);
+  sprintf(buffer, "%d;%s;%s", NODEID, Tstr, Hstr);
   if (DEBUG == 1) {
     Serial.println(buffer);
   }
