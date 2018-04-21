@@ -1,7 +1,6 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <avr/wdt.h>
-#include <JeeLib.h>
 #include <RFM69.h>
 #include <SPI.h>
 #include <DHT.h>
@@ -12,7 +11,9 @@ DHT dht(DHT22_PIN, DHTTYPE);
 RFM69 radio;
 char buffer[30] = "";
 
-ISR(WDT_vect) { Sleepy::watchdogEvent(); }
+ISR(WDT_vect) {
+  wdt_disable();
+}
 
 void setup() {
   pinMode(DHT22_PIN, INPUT);
@@ -30,7 +31,7 @@ void setup() {
 
   dht.begin();
 
-  power_adc_disable();
+  ADCSRA = 0;
   power_twi_disable();
   power_timer1_disable();
   power_timer2_disable();
@@ -59,8 +60,19 @@ void loop() {
 
 
   radio.sleep();
-  for (uint8_t i = 1; i <= SLEEP_TIME_MIN; i++) {
-    Sleepy::loseSomeTime(60000);
+  for (uint8_t i = 1; i <= SLEEP_TIME_MIN * 8; i++) {
+    wdt_enable(WDTO_8S);
+    WDTCSR |= (1 << WDIE);
+
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    cli();
+    sleep_enable();
+    MCUCR = bit (BODS) | bit (BODSE);
+    MCUCR = bit (BODS);
+    sei();
+    sleep_cpu();
+    sleep_disable();
+    sei();
   }
 
 }
