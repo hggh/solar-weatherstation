@@ -2,6 +2,7 @@
 #include <avr/power.h>
 #include <avr/wdt.h>
 #include <RFM69.h>
+#include <JeeLib.h>
 #include <SPI.h>
 #include <DHT.h>
 
@@ -11,9 +12,7 @@ DHT dht(DHT22_PIN, DHTTYPE);
 RFM69 radio;
 char buffer[30] = "";
 
-ISR(WDT_vect) {
-  wdt_disable();
-}
+ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
 void setup() {
   pinMode(DHT22_PIN, INPUT);
@@ -55,24 +54,15 @@ void loop() {
   sprintf(buffer, "%d;%s;%s", NODEID, Tstr, Hstr);
   if (DEBUG == 1) {
     Serial.println(buffer);
+    Serial.flush();
   }
   radio.sendWithRetry(GATEWAYID, buffer, strlen(buffer), 2);
 
 
   radio.sleep();
-  for (uint8_t i = 1; i <= SLEEP_TIME_MIN * 8; i++) {
-    wdt_enable(WDTO_8S);
-    WDTCSR |= (1 << WDIE);
 
-    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-    cli();
-    sleep_enable();
-    MCUCR = bit (BODS) | bit (BODSE);
-    MCUCR = bit (BODS);
-    sei();
-    sleep_cpu();
-    sleep_disable();
-    sei();
+  for (uint8_t i = 1; i <= SLEEP_TIME_MIN; i++) {
+    Sleepy::loseSomeTime(60000);
   }
 
 }
