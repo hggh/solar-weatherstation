@@ -91,22 +91,14 @@ Connection ~ 3550 6800
 $Comp
 L CONN_01X02 P3
 U 1 1 5A883E85
-P 800 4500
-F 0 "P3" H 800 4650 50  0000 C CNN
-F 1 "TX/RX" V 900 4500 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02" H 800 4500 50  0001 C CNN
-F 3 "" H 800 4500 50  0000 C CNN
-	1    800  4500
-	-1   0    0    1   
+P 4550 2900
+F 0 "P3" H 4550 3050 50  0000 C CNN
+F 1 "TX/RX" V 4650 2900 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x02" H 4550 2900 50  0001 C CNN
+F 3 "" H 4550 2900 50  0000 C CNN
+	1    4550 2900
+	1    0    0    -1  
 $EndComp
-Text GLabel 1300 4450 2    60   Input ~ 0
-TX
-Text GLabel 1100 4550 2    60   Input ~ 0
-RX
-Wire Wire Line
-	1300 4450 1000 4450
-Wire Wire Line
-	1100 4550 1000 4550
 $Comp
 L RFM69 RF1
 U 1 1 5A8840B2
@@ -645,36 +637,26 @@ SCL
 Wire Wire Line
 	9350 1550 9350 1600
 Text GLabel 9450 1700 2    60   Input ~ 0
-SCA
+SDA
 Wire Wire Line
 	9450 1550 9450 1700
 Wire Wire Line
 	8800 2300 8800 2400
-Text GLabel 3700 2700 1    60   Input ~ 0
+Text GLabel 4700 2650 1    60   Input ~ 0
 RST
 $Comp
 L R R?
 U 1 1 5AE8C74E
-P 3950 2700
-F 0 "R?" V 4030 2700 50  0000 C CNN
-F 1 "10k" V 3950 2700 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 3880 2700 50  0001 C CNN
-F 3 "" H 3950 2700 50  0000 C CNN
-	1    3950 2700
+P 5000 2700
+F 0 "R?" V 5080 2700 50  0000 C CNN
+F 1 "10k" V 5000 2700 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 4930 2700 50  0001 C CNN
+F 3 "" H 5000 2700 50  0000 C CNN
+	1    5000 2700
 	0    1    1    0   
 $EndComp
-Text GLabel 4400 2700 2    60   Input ~ 0
+Text GLabel 5350 2700 2    60   Input ~ 0
 3.3V
-Wire Wire Line
-	3300 2700 3800 2700
-Text GLabel 3500 2850 2    60   Input ~ 0
-RX
-Text GLabel 3700 2950 2    60   Input ~ 0
-TX
-Wire Wire Line
-	3500 2850 3300 2850
-Wire Wire Line
-	3700 2950 3300 2950
 Text GLabel 3700 3250 2    60   Input ~ 0
 V_MESS_ENABLE
 Wire Wire Line
@@ -707,8 +689,6 @@ Wire Wire Line
 	3300 1650 4050 1650
 Wire Wire Line
 	3750 1750 3300 1750
-Wire Wire Line
-	4400 2700 4100 2700
 $Comp
 L BC556 Q?
 U 1 1 5AECCF24
@@ -802,4 +782,23 @@ Text GLabel 6050 6300 1    60   Input ~ 0
 V_MESS_ENABLE
 Wire Wire Line
 	6050 6300 6050 6400
+Wire Wire Line
+	5350 2700 5150 2700
+Wire Wire Line
+	4850 2700 3300 2700
+Wire Wire Line
+	4700 2650 4700 2700
+Connection ~ 4700 2700
+Wire Wire Line
+	4350 2850 3300 2850
+Wire Wire Line
+	3300 2950 4350 2950
+Text GLabel 3500 2600 2    60   Input ~ 0
+SCL
+Text GLabel 3800 2500 2    60   Input ~ 0
+SDA
+Wire Wire Line
+	3800 2500 3300 2500
+Wire Wire Line
+	3500 2600 3300 2600
 $EndSCHEMATC
