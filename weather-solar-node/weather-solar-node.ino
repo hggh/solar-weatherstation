@@ -10,9 +10,34 @@
 
 DHT dht(DHT22_PIN, DHTTYPE);
 RFM69 radio;
-char buffer[30] = "";
+char buffer[32] = "";
+static float volt_r1 = 56000.0;
+static float volt_r2 = 10000.0;
+static float voltage = 3.3;
+byte ADCSRA_status;
+uint8_t voltage_send = 1;
 
 ISR(WDT_vect) { Sleepy::watchdogEvent(); }
+
+void read_send_voltage() {
+  ADCSRA = ADCSRA_status;
+  digitalWrite(VOLTAGE_ENABLE_PIN, HIGH);
+  float val = analogRead(VOLTAGE_READ_PIN);
+  digitalWrite(VOLTAGE_ENABLE_PIN, LOW);
+  ADCSRA &= ~(1 << 7);
+
+  double vin = ((val * voltage) / 1024.0) / (volt_r2 / ( volt_r1 + volt_r2));
+  char Vstr[10];
+
+  dtostrf(vin, 3,2, Vstr);
+
+  sprintf(buffer, "%d;V:%s", NODEID, Vstr);
+  if (DEBUG == 1) {
+    Serial.println(buffer);
+    Serial.flush();
+  }
+  radio.sendWithRetry(GATEWAYID, buffer, strlen(buffer), 2);
+}
 
 void setup() {
   pinMode(DHT22_PIN, INPUT);
@@ -30,7 +55,13 @@ void setup() {
 
   dht.begin();
 
-  ADCSRA = 0;
+  pinMode(VOLTAGE_READ_PIN, INPUT);
+  pinMode(VOLTAGE_ENABLE_PIN, OUTPUT);
+  digitalWrite(VOLTAGE_ENABLE_PIN, LOW);
+
+  ADCSRA_status = ADCSRA;
+  ADCSRA &= ~(1 << 7);
+
   power_twi_disable();
   power_timer1_disable();
   power_timer2_disable();
@@ -51,13 +82,16 @@ void loop() {
   dtostrf(t, 3,2, Tstr);
   dtostrf(h, 3,2, Hstr);
   
-  sprintf(buffer, "%d;%s;%s", NODEID, Tstr, Hstr);
+  sprintf(buffer, "%d;T:%s;H:%s", NODEID, Tstr, Hstr);
   if (DEBUG == 1) {
     Serial.println(buffer);
     Serial.flush();
   }
   radio.sendWithRetry(GATEWAYID, buffer, strlen(buffer), 2);
-
+  if (voltage_send % 2) {
+    read_send_voltage();
+  }
+  voltage_send++;
 
   radio.sleep();
 
