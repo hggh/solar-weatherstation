@@ -14,6 +14,7 @@ Sparsame "Wetterstation":
   * read the voltage of the solar panel before the z diode and the diode (+2 pins are used)
   * install the Lux sensor (i2c)
   * install the rain gauge INT0 pin (https://de.aliexpress.com/item/1-pcs-of-spare-part-for-weather-station-for-rain-meter-to-measure-the-rain-volume/32793367115.html) 
+  * pack the supercap into styrofoam to lower temperature
 
 
 ## read supercap voltage
@@ -29,8 +30,13 @@ BAD: this method needs to pins on the atmel. One with a ADC and one to enable th
 
 ## NTC 10k
 
-  * NTC is directly attached to the supercap to read the temperature of the supercap, because my case is not perfekt
+  * NTC is directly attached to the supercap to read the temperature of the supercap, because my case is not very good. (too hot)
   * since the NTC wastes energy drive the 10k and NTC via a extra amtel pin.
 
 BAD: two pins are used
+
+
+## TODO: new case
+
+desgin a new case with MDF with airflow
   
