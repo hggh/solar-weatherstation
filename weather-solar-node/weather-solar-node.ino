@@ -39,6 +39,45 @@ void read_send_voltage() {
   radio.sendWithRetry(GATEWAYID, buffer, strlen(buffer), 2);
 }
 
+void read_send_ntc() {
+  float ntc_value;
+  float resistor_value;
+
+  ADCSRA = ADCSRA_status;
+  digitalWrite(ENABLE_NTC, HIGH);
+
+  ntc_value = analogRead(THERMISTORPIN);
+
+  ADCSRA &= ~(1 << 7);
+
+  // convert the value to resistance
+  resistor_value = 1023 / ntc_value - 1;
+  resistor_value = SERIESRESISTOR / resistor_value;
+
+  float steinhart;
+  steinhart = resistor_value / THERMISTORNOMINAL;     // (R/Ro)
+  steinhart = log(steinhart);                  // ln(R/Ro)
+  steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
+  steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
+  steinhart = 1.0 / steinhart;                 // Invert
+  steinhart -= 273.15;                         // convert to C
+
+  if (DEBUG == 1) {
+    Serial.print("Temp/float: ");
+    Serial.println(steinhart);
+  }
+
+  char Tempstr[10];
+  dtostrf((double)steinhart, 3,2, Tempstr);
+
+  sprintf(buffer, "%d;N:%s", NODEID, Tempstr);
+  if (DEBUG == 1) {
+    Serial.println(buffer);
+    Serial.flush();
+  }
+  radio.sendWithRetry(GATEWAYID, buffer, strlen(buffer), 2);
+}
+
 void setup() {
   pinMode(DHT22_PIN, INPUT);
 
@@ -58,6 +97,12 @@ void setup() {
   pinMode(VOLTAGE_READ_PIN, INPUT);
   pinMode(VOLTAGE_ENABLE_PIN, OUTPUT);
   digitalWrite(VOLTAGE_ENABLE_PIN, LOW);
+
+  pinMode(THERMISTORPIN, INPUT);
+  pinMode(ENABLE_NTC, OUTPUT);
+  digitalWrite(ENABLE_NTC, LOW);
+
+  analogReference(EXTERNAL);
 
   ADCSRA_status = ADCSRA;
   ADCSRA &= ~(1 << 7);
@@ -88,6 +133,7 @@ void loop() {
     Serial.flush();
   }
   radio.sendWithRetry(GATEWAYID, buffer, strlen(buffer), 2);
+  read_send_ntc();
   if (voltage_send % 2) {
     read_send_voltage();
   }
