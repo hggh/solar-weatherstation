@@ -20,11 +20,13 @@ uint8_t voltage_send = 1;
 ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
 void read_send_voltage() {
+  power_adc_enable();
   ADCSRA = ADCSRA_status;
   digitalWrite(VOLTAGE_ENABLE_PIN, HIGH);
   float val = analogRead(VOLTAGE_READ_PIN);
   digitalWrite(VOLTAGE_ENABLE_PIN, LOW);
   ADCSRA &= ~(1 << 7);
+  power_adc_disable();
 
   double vin = ((val * voltage) / 1024.0) / (volt_r2 / ( volt_r1 + volt_r2));
   char Vstr[10];
@@ -43,12 +45,14 @@ void read_send_ntc() {
   float ntc_value;
   float resistor_value;
 
+  power_adc_enable();
   ADCSRA = ADCSRA_status;
   digitalWrite(ENABLE_NTC, HIGH);
 
   ntc_value = analogRead(THERMISTORPIN);
 
   ADCSRA &= ~(1 << 7);
+  power_adc_disable();
 
   // convert the value to resistance
   resistor_value = 1023 / ntc_value - 1;
@@ -106,6 +110,7 @@ void setup() {
 
   ADCSRA_status = ADCSRA;
   ADCSRA &= ~(1 << 7);
+  power_adc_disable();
 
   power_twi_disable();
   power_timer1_disable();
