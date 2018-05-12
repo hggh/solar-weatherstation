@@ -23,17 +23,26 @@ void read_send_voltage() {
   power_adc_enable();
   ADCSRA = ADCSRA_status;
   digitalWrite(VOLTAGE_ENABLE_PIN, HIGH);
+  digitalWrite(VOLTAGE_SOLAR_ENABLE_PIN, HIGH);
+
   float val = analogRead(VOLTAGE_READ_PIN);
+  float val_solar = analogRead(VOLTAGE_SOLAR_READ_PIN);
+
+  digitalWrite(VOLTAGE_SOLAR_ENABLE_PIN, LOW);
   digitalWrite(VOLTAGE_ENABLE_PIN, LOW);
   ADCSRA &= ~(1 << 7);
   power_adc_disable();
 
   double vin = ((val * voltage) / 1024.0) / (volt_r2 / ( volt_r1 + volt_r2));
+  double vin_solar = ((val_solar * voltage) / 1024.0) / (volt_r2 / ( volt_r1 + volt_r2));
+
   char Vstr[10];
+  char Vstr_solar[10];
 
-  dtostrf(vin, 3,2, Vstr);
+  dtostrf(vin, 3, 2, Vstr);
+  dtostrf(vin_solar, 3, 2, Vstr_solar);
 
-  sprintf(buffer, "%d;V:%s", NODEID, Vstr);
+  sprintf(buffer, "%d;V:%s;%s", NODEID, Vstr, Vstr_solar);
   if (DEBUG == 1) {
     Serial.println(buffer);
     Serial.flush();
@@ -101,6 +110,10 @@ void setup() {
   pinMode(VOLTAGE_READ_PIN, INPUT);
   pinMode(VOLTAGE_ENABLE_PIN, OUTPUT);
   digitalWrite(VOLTAGE_ENABLE_PIN, LOW);
+
+  pinMode(VOLTAGE_SOLAR_READ_PIN, INPUT);
+  pinMode(VOLTAGE_SOLAR_ENABLE_PIN, OUTPUT);
+  digitalWrite(VOLTAGE_SOLAR_ENABLE_PIN, LOW);
 
   pinMode(THERMISTORPIN, INPUT);
   pinMode(ENABLE_NTC, OUTPUT);
