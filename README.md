@@ -11,10 +11,10 @@ Sparsame "Wetterstation":
 
 ## TODO
   * replace DHT22 with a BME280 (i2c?)
-  * read the voltage of the solar panel before the z diode and the diode (+2 pins are used)
   * install the Lux sensor (i2c)
   * install the rain gauge INT0 pin (https://de.aliexpress.com/item/1-pcs-of-spare-part-for-weather-station-for-rain-meter-to-measure-the-rain-volume/32793367115.html) 
   * pack the supercap into styrofoam to lower temperature
+  * use 328P internal 8Mhz crystal. saves two pins
 
 
 ## read supercap voltage
