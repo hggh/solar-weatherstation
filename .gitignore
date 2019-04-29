@@ -1,1 +1,5 @@
-weather-solar-node/config.h
+src/config.h
+.pio
+.pioenvs
+.piolibdeps
+*.swp
