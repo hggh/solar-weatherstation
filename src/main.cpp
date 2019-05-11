@@ -10,14 +10,28 @@
 
 DHT dht(DHT22_PIN, DHTTYPE);
 RFM69 radio;
-char buffer[32] = "";
+char buffer[50] = "";
 static float volt_r1 = 56000.0;
 static float volt_r2 = 10000.0;
 static float voltage = 3.3;
 byte ADCSRA_status;
 uint8_t voltage_send = 1;
+unsigned long last_time_send = 0;
+unsigned long sleep_time = 600000;
+volatile unsigned long rain_gauge_clicks = 0;
+volatile unsigned long rain_gauge_click_time = 0;
+bool send_data = true;
 
-ISR(WDT_vect) { Sleepy::watchdogEvent(); }
+ISR(WDT_vect) {
+  Sleepy::watchdogEvent();
+}
+
+ISR(PCINT2_vect) {
+  if (millis() - rain_gauge_click_time >= 10) {
+    rain_gauge_clicks++;
+    rain_gauge_click_time = millis();
+  }
+}
 
 void read_send_voltage() {
   power_adc_enable();
@@ -125,42 +139,56 @@ void setup() {
   ADCSRA &= ~(1 << 7);
   power_adc_disable();
 
+  // rain gauge
+  pinMode(RAIN_GAUGE_PIN, INPUT_PULLUP);
+  noInterrupts();
+  PCICR |= (1 << PCIE2);
+  PCMSK2 |= (1 << PCINT20);
+  interrupts();
+
   power_twi_disable();
   power_timer1_disable();
   power_timer2_disable();
 }
 
 void loop() {
+  if (send_data == true) {
 
-  double t = dht.readTemperature();
-  double h = dht.readHumidity();
+    double t = dht.readTemperature();
+    double h = dht.readHumidity();
+    
+    char Tstr[10];
+    char Hstr[10];
   
-  char Tstr[10];
-  char Hstr[10];
-
-  if (isnan(t) || isnan(h)) {
-    delay(10);
-    return;
-  }
-  dtostrf(t, 3,2, Tstr);
-  dtostrf(h, 3,2, Hstr);
-  
-  sprintf(buffer, "%d;T:%s;H:%s", NODEID, Tstr, Hstr);
-  if (DEBUG == 1) {
-    Serial.println(buffer);
-    Serial.flush();
-  }
-  radio.sendWithRetry(GATEWAYID, buffer, strlen(buffer), 2);
-  read_send_ntc();
-  if (voltage_send % 2) {
-    read_send_voltage();
-  }
-  voltage_send++;
-
-  radio.sleep();
-
-  for (uint8_t i = 1; i <= SLEEP_TIME_MIN; i++) {
-    Sleepy::loseSomeTime(60000);
+    if (isnan(t) || isnan(h)) {
+      delay(10);
+      return;
+    }
+    dtostrf(t, 3,2, Tstr);
+    dtostrf(h, 3,2, Hstr);
+    
+    unsigned long rain_tips = rain_gauge_clicks / 2;
+    rain_gauge_clicks = 0;
+    sprintf(buffer, "%d;T:%s;H:%s;R:%lu", NODEID, Tstr, Hstr, rain_tips);
+    if (DEBUG == 1) {
+      Serial.println(buffer);
+      Serial.flush();
+    }
+    radio.sendWithRetry(GATEWAYID, buffer, strlen(buffer), 4, 60);
+    read_send_ntc();
+    if (voltage_send % 2) {
+      read_send_voltage();
+    }
+    voltage_send++;
+    send_data = false;
+    last_time_send = millis();
   }
 
+  if (millis() - last_time_send > sleep_time) {
+    send_data = true;
+  }
+  else {
+    radio.sleep();
+    Sleepy::loseSomeTime(30000);
+  }
 }
