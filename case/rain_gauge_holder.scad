@@ -1,18 +1,18 @@
 
-
-module holder(r=-14) {
+// left
+translate([0, 0,0]) {
     union() {
         difference() {
-            cube([14, 14, 30]);
+            cube([14, 14, 35]);
             translate([14/2, 14/2, -1])
             cylinder(d=8.5, h=60, $fn=90);
         }
-        translate([0, r, 0]) {
+        translate([0, 14, 0]) {
             difference() {
                 cube([8, 14, 14]);
                 translate([-1, 14/2, 14/2]) {
                     rotate([0, 90, 0]) {
-                        cylinder(d=4, h=20, $fn=90);
+                        cylinder(d=4.2, h=20, $fn=90);
                     }
                 }
             }
@@ -21,11 +21,23 @@ module holder(r=-14) {
 }
 
 
-// left
-holder();
-
-
 // right
-translate([0, -100, 0]) {
-    holder(14);
+translate([0, -50, 0]) {
+    union() {
+        difference() {
+            cube([14, 14, 35]);
+            translate([14/2, 14/2, -1])
+            cylinder(d=8.5, h=60, $fn=90);
+        }
+        translate([0, -14, 0]) {
+            difference() {
+                cube([8, 14, 14]);
+                translate([-1, 14/2, 14/2]) {
+                    rotate([0, 90, 0]) {
+                        cylinder(d=4.2, h=20, $fn=90);
+                    }
+                }
+            }
+        }
+    }
 }
