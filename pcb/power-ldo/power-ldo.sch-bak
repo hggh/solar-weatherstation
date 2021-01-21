@@ -1,0 +1,471 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:CP1_Small C1
+U 1 1 5FF8EB28
+P 3150 3500
+F 0 "C1" H 3241 3546 50  0000 L CNN
+F 1 "1µF" H 3241 3455 50  0000 L CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 3150 3500 50  0001 C CNN
+F 3 "~" H 3150 3500 50  0001 C CNN
+	1    3150 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP1_Small C2
+U 1 1 5FF8EE13
+P 4350 3500
+F 0 "C2" H 4441 3546 50  0000 L CNN
+F 1 "10µF" H 4441 3455 50  0000 L CNN
+F 2 "Capacitor_SMD:CP_Elec_4x5.4" H 4350 3500 50  0001 C CNN
+F 3 "~" H 4350 3500 50  0001 C CNN
+	1    4350 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L HT78XX:HT78xx U1
+U 1 1 5FF8F337
+P 3750 3500
+F 0 "U1" H 3725 4025 50  0000 C CNN
+F 1 "HT78xx" H 3725 3934 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-89-3" H 3850 3400 50  0001 C CNN
+F 3 "https://www.shotech.de/Datasheet/HT78xxv150.pdf" H 3750 3500 50  0001 C CNN
+	1    3750 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J1
+U 1 1 5FF90939
+P 2400 3600
+F 0 "J1" H 2292 3275 50  0000 C CNN
+F 1 "BATT" H 2292 3366 50  0000 C CNN
+F 2 "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal" H 2400 3600 50  0001 C CNN
+F 3 "~" H 2400 3600 50  0001 C CNN
+	1    2400 3600
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J2
+U 1 1 5FF910C6
+P 6000 4800
+F 0 "J2" H 5892 4475 50  0000 C CNN
+F 1 "SOLAR" H 5892 4566 50  0000 C CNN
+F 2 "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal" H 6000 4800 50  0001 C CNN
+F 3 "~" H 6000 4800 50  0001 C CNN
+	1    6000 4800
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5FF915E9
+P 8100 4200
+F 0 "R4" H 8170 4246 50  0000 L CNN
+F 1 "1.1k" H 8170 4155 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8030 4200 50  0001 C CNN
+F 3 "~" H 8100 4200 50  0001 C CNN
+	1    8100 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5FF91A71
+P 7650 3650
+F 0 "R3" V 7443 3650 50  0000 C CNN
+F 1 "1.1k" V 7534 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 7580 3650 50  0001 C CNN
+F 3 "~" H 7650 3650 50  0001 C CNN
+	1    7650 3650
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5FF92A61
+P 7100 4100
+F 0 "R1" H 7170 4146 50  0000 L CNN
+F 1 "100k" H 7170 4055 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 7030 4100 50  0001 C CNN
+F 3 "~" H 7100 4100 50  0001 C CNN
+	1    7100 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5FF92B1C
+P 7100 4550
+F 0 "R2" H 7170 4596 50  0000 L CNN
+F 1 "10k" H 7170 4505 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 7030 4550 50  0001 C CNN
+F 3 "~" H 7100 4550 50  0001 C CNN
+	1    7100 4550
+	1    0    0    -1  
+$EndComp
+Text GLabel 6400 4700 2    50   Input ~ 0
+SOLAR
+Text GLabel 2900 3400 1    50   Input ~ 0
+BATT
+Text GLabel 7100 3350 1    50   Input ~ 0
+BATT
+$Comp
+L power:GND #PWR01
+U 1 1 5FF9AA9F
+P 3850 3750
+F 0 "#PWR01" H 3850 3500 50  0001 C CNN
+F 1 "GND" H 3855 3577 50  0000 C CNN
+F 2 "" H 3850 3750 50  0001 C CNN
+F 3 "" H 3850 3750 50  0001 C CNN
+	1    3850 3750
+	1    0    0    -1  
+$EndComp
+Connection ~ 3850 3600
+Wire Wire Line
+	3850 3600 4350 3600
+Wire Wire Line
+	3850 3600 3850 3750
+Wire Wire Line
+	4000 3200 4350 3200
+Wire Wire Line
+	4350 3200 4350 3400
+$Comp
+L power:GND #PWR05
+U 1 1 5FF9B2B7
+P 8500 3700
+F 0 "#PWR05" H 8500 3450 50  0001 C CNN
+F 1 "GND" H 8505 3527 50  0000 C CNN
+F 2 "" H 8500 3700 50  0001 C CNN
+F 3 "" H 8500 3700 50  0001 C CNN
+	1    8500 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5FF9B960
+P 7100 4800
+F 0 "#PWR04" H 7100 4550 50  0001 C CNN
+F 1 "GND" H 7105 4627 50  0000 C CNN
+F 2 "" H 7100 4800 50  0001 C CNN
+F 3 "" H 7100 4800 50  0001 C CNN
+	1    7100 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7100 4250 7100 4300
+Wire Wire Line
+	7100 4700 7100 4800
+$Comp
+L Device:R R8
+U 1 1 5FF9D6CF
+P 10100 4200
+F 0 "R8" H 10170 4246 50  0000 L CNN
+F 1 "1.1k" H 10170 4155 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 10030 4200 50  0001 C CNN
+F 3 "~" H 10100 4200 50  0001 C CNN
+	1    10100 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 5FF9D817
+P 9650 3650
+F 0 "R7" V 9443 3650 50  0000 C CNN
+F 1 "1.1k" V 9534 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 9580 3650 50  0001 C CNN
+F 3 "~" H 9650 3650 50  0001 C CNN
+	1    9650 3650
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5FF9D821
+P 9100 4100
+F 0 "R5" H 9170 4146 50  0000 L CNN
+F 1 "100k" H 9170 4055 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 9030 4100 50  0001 C CNN
+F 3 "~" H 9100 4100 50  0001 C CNN
+	1    9100 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 5FF9D82B
+P 9100 4550
+F 0 "R6" H 9170 4596 50  0000 L CNN
+F 1 "10k" H 9170 4505 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 9030 4550 50  0001 C CNN
+F 3 "~" H 9100 4550 50  0001 C CNN
+	1    9100 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 5FF9D84A
+P 10500 3700
+F 0 "#PWR07" H 10500 3450 50  0001 C CNN
+F 1 "GND" H 10505 3527 50  0000 C CNN
+F 2 "" H 10500 3700 50  0001 C CNN
+F 3 "" H 10500 3700 50  0001 C CNN
+	1    10500 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR06
+U 1 1 5FF9D854
+P 9100 4800
+F 0 "#PWR06" H 9100 4550 50  0001 C CNN
+F 1 "GND" H 9105 4627 50  0000 C CNN
+F 2 "" H 9100 4800 50  0001 C CNN
+F 3 "" H 9100 4800 50  0001 C CNN
+	1    9100 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9100 4250 9100 4300
+Wire Wire Line
+	9100 4700 9100 4800
+Text GLabel 9100 3300 1    50   Input ~ 0
+SOLAR
+$Comp
+L Connector:Conn_01x06_Female J3
+U 1 1 5FFA2BC9
+P 6450 5750
+F 0 "J3" H 6342 5225 50  0000 C CNN
+F 1 "TO_ESP" H 6342 5316 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x03_P2.54mm_Vertical" H 6450 5750 50  0001 C CNN
+F 3 "~" H 6450 5750 50  0001 C CNN
+	1    6450 5750
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 5FFA458A
+P 7000 5950
+F 0 "#PWR03" H 7000 5700 50  0001 C CNN
+F 1 "GND" H 7005 5777 50  0000 C CNN
+F 2 "" H 7000 5950 50  0001 C CNN
+F 3 "" H 7000 5950 50  0001 C CNN
+	1    7000 5950
+	1    0    0    -1  
+$EndComp
+Text GLabel 4350 3100 1    50   Input ~ 0
+3.0V
+Wire Wire Line
+	4350 3100 4350 3200
+Connection ~ 4350 3200
+Text GLabel 7000 5850 2    50   Input ~ 0
+3.0V
+Wire Wire Line
+	6650 5850 7000 5850
+Wire Wire Line
+	7000 5950 6650 5950
+Wire Wire Line
+	6650 5750 10100 5750
+Wire Wire Line
+	10100 5750 10100 4350
+Text Label 8900 5750 0    50   ~ 0
+EN_SOLAR
+Wire Wire Line
+	9100 4300 9950 4300
+Wire Wire Line
+	9950 4300 9950 5650
+Wire Wire Line
+	9950 5650 6650 5650
+Connection ~ 9100 4300
+Wire Wire Line
+	9100 4300 9100 4400
+Text Label 9450 5650 0    50   ~ 0
+PW_SOLAR
+Wire Wire Line
+	6650 5550 8100 5550
+Wire Wire Line
+	8100 5550 8100 4350
+Text Label 7750 5550 0    50   ~ 0
+EN_BATT
+Wire Wire Line
+	7100 4300 8000 4300
+Wire Wire Line
+	8000 4300 8000 5450
+Wire Wire Line
+	8000 5450 6650 5450
+Connection ~ 7100 4300
+Wire Wire Line
+	7100 4300 7100 4400
+Text Label 7450 5450 0    50   ~ 0
+PW_BATT
+$Comp
+L power:GND #PWR02
+U 1 1 5FFAAFA0
+P 6400 4800
+F 0 "#PWR02" H 6400 4550 50  0001 C CNN
+F 1 "GND" H 6405 4627 50  0000 C CNN
+F 2 "" H 6400 4800 50  0001 C CNN
+F 3 "" H 6400 4800 50  0001 C CNN
+	1    6400 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6400 4700 6300 4700
+Wire Wire Line
+	6200 4800 6400 4800
+Wire Wire Line
+	2600 3600 3150 3600
+Connection ~ 3150 3600
+Wire Wire Line
+	3150 3600 3850 3600
+Wire Wire Line
+	2600 3500 2900 3500
+Wire Wire Line
+	2900 3500 2900 3400
+Wire Wire Line
+	2900 3400 3150 3400
+Connection ~ 3150 3400
+Wire Wire Line
+	3150 3400 3450 3400
+$Comp
+L Device:D D1
+U 1 1 5FFD2C2D
+P 6300 4400
+F 0 "D1" V 6254 4480 50  0000 L CNN
+F 1 "D" V 6345 4480 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 6300 4400 50  0001 C CNN
+F 3 "~" H 6300 4400 50  0001 C CNN
+	1    6300 4400
+	0    1    1    0   
+$EndComp
+Text GLabel 6300 4100 1    50   Input ~ 0
+BATT
+Wire Wire Line
+	6300 4550 6300 4700
+Connection ~ 6300 4700
+Wire Wire Line
+	6300 4700 6200 4700
+Wire Wire Line
+	6300 4250 6300 4100
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 5FFD5BB1
+P 4250 4550
+F 0 "H1" H 4350 4596 50  0000 L CNN
+F 1 "MountingHole" H 4350 4505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 4250 4550 50  0001 C CNN
+F 3 "~" H 4250 4550 50  0001 C CNN
+	1    4250 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 5FFD654D
+P 4250 4800
+F 0 "H2" H 4350 4846 50  0000 L CNN
+F 1 "MountingHole" H 4350 4755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 4250 4800 50  0001 C CNN
+F 3 "~" H 4250 4800 50  0001 C CNN
+	1    4250 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 5FFD669A
+P 5000 4550
+F 0 "H3" H 5100 4596 50  0000 L CNN
+F 1 "MountingHole" H 5100 4505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 5000 4550 50  0001 C CNN
+F 3 "~" H 5000 4550 50  0001 C CNN
+	1    5000 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 5FFD6CFA
+P 5050 4850
+F 0 "H4" H 5150 4896 50  0000 L CNN
+F 1 "MountingHole" H 5150 4805 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 5050 4850 50  0001 C CNN
+F 3 "~" H 5050 4850 50  0001 C CNN
+	1    5050 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC327 Q?
+U 1 1 60096E1E
+P 7200 3650
+F 0 "Q?" H 7391 3604 50  0000 L CNN
+F 1 "BC327" H 7391 3695 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7400 3575 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 7200 3650 50  0001 L CNN
+	1    7200 3650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7100 3350 7100 3450
+Wire Wire Line
+	7100 3850 7100 3950
+Wire Wire Line
+	7400 3650 7500 3650
+$Comp
+L Transistor_BJT:BC337 Q?
+U 1 1 6009A475
+P 8100 3750
+F 0 "Q?" V 8428 3750 50  0000 C CNN
+F 1 "BC337" V 8337 3750 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 8300 3675 50  0001 L CIN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf" H 8100 3750 50  0001 L CNN
+	1    8100 3750
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8500 3700 8500 3650
+Wire Wire Line
+	8500 3650 8300 3650
+Wire Wire Line
+	7900 3650 7800 3650
+Wire Wire Line
+	8100 3950 8100 4050
+$Comp
+L Transistor_BJT:BC327 Q?
+U 1 1 6009DA1F
+P 9200 3650
+F 0 "Q?" H 9391 3604 50  0000 L CNN
+F 1 "BC327" H 9391 3695 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9400 3575 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 9200 3650 50  0001 L CNN
+	1    9200 3650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9100 3300 9100 3450
+Wire Wire Line
+	9500 3650 9400 3650
+Wire Wire Line
+	9100 3850 9100 3950
+$Comp
+L Transistor_BJT:BC337 Q?
+U 1 1 600A03AE
+P 10100 3750
+F 0 "Q?" V 10428 3750 50  0000 C CNN
+F 1 "BC337" V 10337 3750 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 10300 3675 50  0001 L CIN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf" H 10100 3750 50  0001 L CNN
+	1    10100 3750
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10500 3700 10500 3650
+Wire Wire Line
+	10500 3650 10300 3650
+Wire Wire Line
+	10100 3950 10100 4050
+Wire Wire Line
+	9900 3650 9800 3650
+$EndSCHEMATC

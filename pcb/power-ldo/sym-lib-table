@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name HT78XX)(type Legacy)(uri /home/jonas/entwicklung/kicad-libraries/ht78xx.lib)(options "")(descr ""))
+)
