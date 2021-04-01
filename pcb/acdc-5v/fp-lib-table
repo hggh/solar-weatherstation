@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "terminal block")(type KiCad)(uri /home/jonas/entwicklung/kicad-libraries/terminal_blocks.pretty)(options "")(descr ""))
+)
