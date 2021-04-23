@@ -5,5 +5,6 @@
    *  rain gauge
    *  wind speed sensor
    *  BME280
- * ESP8266 (for Feinstaub sensor)
+ * ESP8266 (with Feinstaub sensor firmware)
+   * SDS 011
  
